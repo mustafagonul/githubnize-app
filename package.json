@@ -1,0 +1,30 @@
+{
+  "name": "githubnize-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "dev": "REACT_APP_ENV=development react-scripts start",
+    "build": "REACT_APP_ENV=production react-scripts build",
+    "test": "REACT_APP_ENV=test react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "eslint": "eslint src"
+  },
+  "dependencies": {
+    "immutable": "^3.8.2",
+    "material-ui": "^0.20.0",
+    "normalize.css": "^7.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-redux": "^4.0.8",
+    "react-tap-event-plugin": "^3.0.2",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.17"
+  }
+}
