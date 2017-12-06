@@ -29,6 +29,8 @@ src/config/environments/*.json
 
 # visual code
 package-lock.json
+yarn.lock
+
 
 
 
