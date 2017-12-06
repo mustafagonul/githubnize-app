@@ -11,6 +11,7 @@
     "eslint": "eslint src"
   },
   "dependencies": {
+    "history": "^4.7.2",
     "immutable": "^3.8.2",
     "material-ui": "^0.20.0",
     "normalize.css": "^7.0.0",

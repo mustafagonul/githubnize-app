@@ -1,12 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router';
+import { fromJS } from 'immutable';
 
-ReactDOM.render(
-  <App />,
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import createHistory from 'history/createBrowserHistory';
+
+import routes from './routes';
+import configureStore from './store/configureStore';
+
+import api from './configs/api';
+
+import 'normalize.css';
+import './style.css';
+
+injectTapEventPlugin();
+
+const token = localStorage.getItem('token');
+const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'));
+
+const history = createHistory();
+
+const store = configureStore({
+  authentication: fromJS({
+    loading: false,
+    valid: true,
+    error: null,
+    token: token,
+    user: user
+  }),
+  history
+});
+
+if (token) {
+  api.token = token;
+}
+
+render(
+  <Provider store={store}>
+    <Router history={history} routes={routes} />
+  </Provider>,
   document.getElementById('root')
 );
-
-registerServiceWorker();
