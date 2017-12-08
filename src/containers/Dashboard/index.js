@@ -11,11 +11,21 @@ class Dashboard extends Component {
     const { children } = this.props;
 
     return (
+
+      <MuiThemeProvider>
+        <div>
+          Dashboard
+        </div>
+      </MuiThemeProvider>
+
+      /*
       <MuiThemeProvider>
         <div>
           { children }
         </div>
       </MuiThemeProvider>
+
+      */
     );
   }
 }

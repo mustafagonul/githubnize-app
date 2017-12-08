@@ -15,12 +15,15 @@ import api from './configs/api';
 import 'normalize.css';
 import './style.css';
 
+
 injectTapEventPlugin();
+
 
 const token = localStorage.getItem('token');
 const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'));
 
 const history = createHistory();
+
 
 const store = configureStore({
   authentication: fromJS({
@@ -33,13 +36,15 @@ const store = configureStore({
   history
 });
 
+
 if (token) {
   api.token = token;
 }
 
+
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <Router history={history} children={routes} />
   </Provider>,
   document.getElementById('root')
 );
