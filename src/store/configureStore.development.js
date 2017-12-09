@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import { createLogger } from 'redux-logger';
+import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
+
 import rootReducer from '../reducers';
 
 const configureStore = (preloadedState, history) => {
@@ -11,9 +13,8 @@ const configureStore = (preloadedState, history) => {
     rootReducer,
     preloadedState,
     composeEnhancers(applyMiddleware(thunk)),
-    composeEnhancers(applyMiddleware(history)),
-    composeEnhancers(createLogger()),
-
+    composeEnhancers(applyMiddleware(routerMiddleware(history))),
+    composeEnhancers(createLogger())
   );
 
   return store;

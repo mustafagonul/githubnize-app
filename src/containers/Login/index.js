@@ -8,9 +8,9 @@ class Login extends Component {
 
   render() {
     return (
-      <header className="login">
-        <div className="logo-container">
-          <h1 className="logo">Githubnize Login</h1>
+      <header>
+        <div>
+          <h1>Login</h1>
         </div>
       </header>
     );
@@ -18,7 +18,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  
+
 }
 
 export default Login;

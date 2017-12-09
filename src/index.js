@@ -28,13 +28,12 @@ const history = createHistory();
 const store = configureStore({
   authentication: fromJS({
     loading: false,
-    valid: true,
+    valid: false,
     error: null,
     token: token,
     user: user
-  }),
-  history
-});
+  })
+}, history);
 
 
 if (token) {

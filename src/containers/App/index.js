@@ -10,7 +10,6 @@ class App extends Component {
   render() {
     const { children } = this.props;
 
-    /*
     return (
       <MuiThemeProvider>
         <div>
@@ -18,16 +17,7 @@ class App extends Component {
         </div>
       </MuiThemeProvider>
     );
-    */
 
-
-    return (
-      <MuiThemeProvider>
-        <div>
-          Alla alla
-        </div>
-      </MuiThemeProvider>
-    );
   }
 }
 

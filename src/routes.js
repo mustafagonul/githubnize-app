@@ -1,21 +1,21 @@
 import React from 'react';
-import { IndexRoute, Route } from 'react-router';
+import { IndexRoute, Route, Switch } from 'react-router';
 
 import App from './containers/App';
-import Dashboard from './containers/Dashboard';
-import Login from './components/Login';
+import Main from './containers/Main'
+import Login from './containers/Login';
 
-/*
+
+
 export default (
   <Switch>
-    <Route exact path="/" component={App} />
-    <Route exact path="/login" component={Login} />
-    <Route exact path="/:user" component={Dashboard} />
+    <Route exact path='/login' component={Login} />
+    <Route path='/' component={Main} />
   </Switch>
 );
-*/
 
 
+/*
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomeContainer} />
@@ -23,3 +23,4 @@ export default (
     <Route path="/:userSlug/boards/:boardSlug" component={BoardsContainer}></Route>
   </Route>
 );
+*/
