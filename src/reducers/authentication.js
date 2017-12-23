@@ -5,18 +5,20 @@ const initialState = fromJS({
   loading: false,
   valid: false,
   error: null,
-  token: null,
+  api_token: null,
+  github_token: null,
   user: null,
 });
 
 export default createReducer(initialState, {
   SIGN_IN_START: state => state.set('loading', true),
 
-  SIGN_IN_COMPLETE: (state, {data: { token, user }}) => state.merge(fromJS({
+  SIGN_IN_COMPLETE: (state, { data: { api_token, github_token, user }}) => state.merge(fromJS({
     loading: false,
     valid: true,
     error: null,
-    token,
+    api_token,
+    github_token,
     user,
   })),
 

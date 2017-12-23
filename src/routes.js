@@ -1,19 +1,17 @@
+
+/*
 import React from 'react';
-import { IndexRoute, Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router';
 
 import App from './containers/App';
-import Main from './containers/Main'
-import Login from './containers/Login';
-
 
 
 export default (
   <Switch>
-    <Route exact path='/login' component={Login} />
-    <Route path='/' component={Main} />
+    <Route exact path='/' component={App} />
   </Switch>
 );
-
+*/
 
 /*
 export default (

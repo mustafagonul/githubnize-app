@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { createLogger } from 'redux-logger';
-import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers';
 
-const configureStore = (preloadedState, history) => {
+const configureStore = (preloadedState) => {
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -13,7 +12,6 @@ const configureStore = (preloadedState, history) => {
     rootReducer,
     preloadedState,
     composeEnhancers(applyMiddleware(thunk)),
-    composeEnhancers(applyMiddleware(routerMiddleware(history))),
     composeEnhancers(createLogger())
   );
 
