@@ -2,5 +2,10 @@
   "api": {
     "url": "",
     "version": "v1"
+  },
+  "github": {
+    "url": "",
+    "client_id": "882ba324629b1dd180b5",
+    "client_secret": "44805ea7f5380be1ead31fb8996e610ce781dd3d"
   }
 }

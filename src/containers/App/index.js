@@ -1,35 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import{ connect } from 'react-redux';
+
+
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import Main from '../Main'
 
 import './style.css';
 
-
-class App extends Component {
+export default class App extends Component {
   render() {
-    const { children } = this.props;
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
-          { children }
+          <Main />
         </div>
       </MuiThemeProvider>
     );
 
   }
 }
-
-
-App.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-
-export default connect(
-  (state, props) => ({
-    location: props.location,
-  })
-)(App);
-

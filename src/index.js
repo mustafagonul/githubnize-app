@@ -1,16 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
 import { fromJS } from 'immutable';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import createHistory from 'history/createBrowserHistory';
 
-import routes from './routes';
 import configureStore from './store/configureStore';
-
 import api from './configs/api';
+import App from './containers/App'
 
 import 'normalize.css';
 import './style.css';
@@ -19,10 +16,9 @@ import './style.css';
 injectTapEventPlugin();
 
 
-const token = localStorage.getItem('token');
-const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'));
-
-const history = createHistory();
+const api_token = localStorage.getItem('api_token');
+const github_token = localStorage.getItem('github_token');
+const user = localStorage.getItem('user');
 
 
 const store = configureStore({
@@ -30,20 +26,25 @@ const store = configureStore({
     loading: false,
     valid: false,
     error: null,
-    token: token,
+    api_token: api_token,
+    github_token: github_token,
     user: user
   })
-}, history);
+});
 
 
-if (token) {
-  api.token = token;
+if (api_token) {
+  api.api_token = api_token;
+}
+
+if (github_token) {
+  api.github_token = github_token;
 }
 
 
 render(
   <Provider store={store}>
-    <Router history={history} children={routes} />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

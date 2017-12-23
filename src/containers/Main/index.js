@@ -1,37 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
 
+import Login from '../Login'
 import Home from '../Home';
+
+import { githubAuthRequest } from '../../actions/auth';
 
 import './style.css';
 
 
 class Main extends Component {
+  handleGithubEvent(data) {
+    if (!data.error) {
+      this.props.dispatch(githubAuthRequest(data));
+    }
+  }
 
   render() {
-    let view = <Home />;
-    if (!this.props.loginRequired)
-      view = <Redirect to='/login' />;
-
     return (
       <div>
-        { view }
+        {
+          this.props.valid
+          ? <Home />
+          : <Login onGithubEvent={this.handleGithubEvent.bind(this)} />
+        }
       </div>
     );
   }
-
 }
+
 
 Main.propTypes = {
-  loginRequired: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
 }
 
-const mapStateToProps = (state) => {
-  return {
-    loginRequired: state.authentication.get('valid')
-  }
-}
 
-export default connect(mapStateToProps)(Main);
+export default connect(
+  state => ({
+    valid: state.authentication.get('valid'),
+  })
+)(Main);
