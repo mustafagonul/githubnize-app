@@ -21,7 +21,7 @@ class Main extends Component {
     return (
       <div>
         {
-          this.props.valid
+          !this.props.valid
           ? <Home />
           : <Login onGithubEvent={this.handleGithubEvent.bind(this)} />
         }

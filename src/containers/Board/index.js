@@ -1,33 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { Component} from 'react';
+import { PropTypes } from 'prop-types';
+
+import BoardHeader from '../BoardHeader';
+import ReadMe from '../../components/ReadMe';
 
 import './style.css';
 
 
 class Board extends Component {
-  render() {
-    const { children } = this.props;
 
+  render() {
     return (
-      <MuiThemeProvider>
-        <div>
-          { children }
+      <div className="board">
+        <div className="header">
+          <BoardHeader />
         </div>
-      </MuiThemeProvider>
+        <div className="readme">
+          <ReadMe />
+        </div>
+      </div>
     );
   }
 }
 
-
 Board.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
+}
 
-export default connect(
-  (state, props) => ({
-    location: props.location,
-  })
-)(Board);
+export default Board;
