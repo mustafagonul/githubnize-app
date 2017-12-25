@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import {green100, green500, green700} from 'material-ui/styles/colors';
@@ -25,16 +25,15 @@ const muiTheme = getMuiTheme({
 */
 
 
-export default class App extends Component {
+class App extends Component {
   render() {
-
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <div>
-          <Main />
-        </div>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <Main />
       </MuiThemeProvider>
     );
-
   }
 }
+
+
+export default App;

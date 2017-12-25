@@ -1,5 +1,5 @@
-import React, { Component} from 'react';
-import { PropTypes } from 'prop-types';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
 import Header from '../Header'
 import Sidebar from '../Sidebar'
@@ -31,8 +31,5 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
+export default connect()(Home);
 
-}
-
-export default Home;

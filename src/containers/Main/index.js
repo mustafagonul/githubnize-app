@@ -13,6 +13,8 @@ import './style.css';
 class Main extends Component {
   handleGithubEvent(data) {
     if (!data.error) {
+      console.log('aaa');
+
       this.props.dispatch(githubAuthRequest(data));
     }
   }
@@ -21,7 +23,7 @@ class Main extends Component {
     return (
       <div>
         {
-          !this.props.valid
+          this.props.valid
           ? <Home />
           : <Login onGithubEvent={this.handleGithubEvent.bind(this)} />
         }

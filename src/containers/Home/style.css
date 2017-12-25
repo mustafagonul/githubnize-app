@@ -13,15 +13,18 @@
 .home .home-body .home-body-sidebar {
   order: 1;
   overflow: auto;
+  flex: 15%;
 }
 
 .home .home-body .home-body-repos {
   order: 2;
   overflow: auto;
+  flex: 15%;
 }
 
 .home .home-body .home-body-board {
   order: 3;
   flex: 100%;
   overflow: auto;
+  flex: 70%;
 }
