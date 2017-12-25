@@ -29,6 +29,16 @@ const store = configureStore({
     api_token: api_token,
     github_token: github_token,
     user: user
+  }),
+  tag: fromJS({
+    loading: false,
+    error: null,
+
+    allstars: false,
+    untagged: false,
+    current: null,
+
+    repo: null,
   })
 });
 

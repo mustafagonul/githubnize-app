@@ -5,3 +5,8 @@
 .sidebar .sidebar-list {
   color: gray;
 }
+
+.sidebar .sidebar-list .sidebar-listitem {
+  color: gray;
+  border-style: dotted;
+}

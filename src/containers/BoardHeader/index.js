@@ -10,7 +10,7 @@ class BoardHeader extends Component {
 
   render() {
     return (
-      <Toolbar>
+      <Toolbar primary={true}>
         <Chip>
           Mustafa
         </Chip>

@@ -11,6 +11,7 @@ class Login extends Component {
     const { onGithubEvent} = this.props;
 
     return (
+      <div>
       <header className="login">
         <div className="logo-container">
           <h1 className="logo">Githubnize</h1>
@@ -21,7 +22,7 @@ class Login extends Component {
           </div>
         </div>
       </header>
-
+      </div>
     );
   }
 }
