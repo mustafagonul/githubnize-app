@@ -56,11 +56,11 @@ class Home extends Component {
           closeTagDrawer={this.closeTagDrawer}
         />
 
-        <Grid container spacing={0}>
-          <Grid item xs={3}>
+        <Grid container spacing={30}>
+          <Grid item xs={2}>
             <ReposPaper />
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={10}>
             <RepoPaper />
           </Grid>
         </Grid>

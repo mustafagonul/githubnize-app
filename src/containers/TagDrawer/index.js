@@ -44,14 +44,17 @@ class TagDrawer extends Component {
 
   showAllstars = () => {
     this.props.dispatch(requestAllStarred());
+    this.props.closeTagDrawer();
   }
 
   showUntagged = () => {
     this.props.dispatch(requestUntagged());
+    this.props.closeTagDrawer();
   }
 
   showTag = (slug, event) => {
     this.props.dispatch(requestTag(slug));
+    this.props.closeTagDrawer();
   }
 
   render() {
@@ -84,15 +87,17 @@ class TagDrawer extends Component {
                 <SocialPublic color="contrast" />
                 <ListItemText primary="All Stars" />
               </ListItem>
+              { /*
               <ListItem button onClick={ this.showUntagged }>
                 <ToggleStarBorder color="contrast" />
                 <ListItemText primary="Untagged" />
               </ListItem>
+              */ }
               <Divider />
               {
                 this.state.tags.map(value => (
                   <ListItem button key={ value.slug } onClick={ event => this.showTag(value.slug, event) }>
-                    { value.slug === this.props.currentTag ? <StarIcon color="contrast" /> : <MapsLocalOffer color="contrast" /> }
+                    { value.slug === this.props.currentTag ? <StarIcon color="contrast" /> : <ToggleStarBorder color="contrast" /> }
                     <ListItemText primary={ value.name } />
                   </ListItem>
                 ))

@@ -120,7 +120,6 @@ export default class Api {
 
   addTag(tag) {
     const data = {
-      login: this.user,
       name: tag,
     };
 
@@ -132,8 +131,8 @@ export default class Api {
     .then(handleResponse);
   }
 
-  deleteTag(tag) {
-    return fetch(`${this._api_url}/tag/${tag}`, {
+  deleteTag(slug) {
+    return fetch(`${this._api_url}/tag/${slug}`, {
       method: 'DELETE',
       headers: this.api_header(),
     })
@@ -144,8 +143,16 @@ export default class Api {
 
   }
 
-  getRepoReadMe(repo) {
-    return fetch(`${this._github_url}/repos/${repo}/readme`, {
+  getRepo(owner, repo) {
+    return fetch(`${this._api_url}/repo/${owner}/${repo}`, {
+      method: 'GET',
+      headers: this.api_header(),
+    })
+    .then(handleResponse);
+  }
+
+  getRepoReadMe(owner, repo) {
+    return fetch(`${this._github_url}/repos/${owner}/${repo}/readme`, {
       method: 'GET',
       headers: this.github_header(),
     })
@@ -159,6 +166,25 @@ export default class Api {
       })
       .then(handleTextResponse);
     });
+  }
+
+  addRepo(owner, repo, slug) {
+    const data = { owner, repo, slug };
+
+    return fetch(`${this._api_url}/repo`, {
+      method: 'POST',
+      headers: this.api_header(),
+      body: JSON.stringify(data),
+    })
+    .then(handleResponse);
+  }
+
+  deleteRepo(owner, repo, slug) {
+    return fetch(`${this._api_url}/repo/${owner}/${repo}/${slug}`, {
+      method: 'DELETE',
+      headers: this.api_header(),
+    })
+    .then(handleResponse);
   }
 
 
