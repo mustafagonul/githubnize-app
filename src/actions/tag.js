@@ -16,10 +16,10 @@ export const getUntagged = createAction('GET_UNTAGGED');
 export const getTag = createAction('GET_TAG', 'tag');
 export const addTag = createAction('ADD_TAG', 'tag');
 export const updateTag = createAction('UPDATE_TAG', 'tag');
-export const deleteTag = createAction('DELETE_TAG', 'tag');
+export const deleteTag = createAction('DELETE_TAG');
 export const getRepo = createAction('GET_REPO', 'repo');
 export const addRepo = createAction('ADD_REPO', 'repo');
-export const deleteRepo = createAction('DELETE_REPO', 'repo');
+export const deleteRepo = createAction('DELETE_REPO');
 
 export const getAllstarsError = createAction('GET_ALLSTARS_ERROR', 'error');
 export const getUntaggedError = createAction('GET_UNTAGGED_ERROR', 'error',);
@@ -75,7 +75,7 @@ export function requestAddTag(tag) {
     dispatch(addTagStart());
 
     return api.addTag(tag).then(
-      () => { dispatch(addTag(tag)); requestTag(tag); },
+      (data) => dispatch(addTag(data.slug)),
       (error) => dispatch(addTagError(error))
     );
   }
@@ -96,9 +96,10 @@ export function requestDeleteTag(tag) {
   return dispatch => {
     dispatch(deleteTagStart());
 
-    return api.getTag(tag).then(
-      () => { dispatch(deleteTag(tag)); requestAllStarred(); },
-      (error) => dispatch(deleteTagError(error))
+    return api.deleteTag(tag).then(
+      () => dispatch(deleteTag()),
+      //(error) => dispatch(deleteTagError(error))
+      (error) => dispatch(deleteTag()) // TODO mustafa: hack
     );
   }
 }

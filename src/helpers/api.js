@@ -108,10 +108,22 @@ export default class Api {
   }
 
   deleteTag(tag) {
+    /*
+    const data = {
+      login: this.user,
+      slug: tag,
+    };
+    */
 
+    return fetch(`${this._api_url}/tag/${tag}`, {
+      method: 'DELETE',
+      headers: this.api_header(),
+      // body: JSON.stringify(data),
+    })
+    .then(handleResponse);
   }
 
-  editTag(tag) {
+  updateTag(tag) {
 
   }
 

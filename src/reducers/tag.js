@@ -45,7 +45,7 @@ export default createReducer(initialState, {
     error: error,
   }),
 
-  // Tag
+  // Get Tag
   GET_TAG_START: state => state.set('loading', true),
 
   GET_TAG: (state, { tag }) => state.merge(fromJS({
@@ -57,6 +57,38 @@ export default createReducer(initialState, {
   })),
 
   GET_TAG_ERROR: (state, { error }) => state.merge({
+    loading: false,
+    error: error,
+  }),
+
+  // Add Tag
+  ADD_TAG_START: state => state.set('loading', true),
+
+  ADD_TAG: (state, { tag }) => state.merge(fromJS({
+    loading: false,
+
+    allstars: false,
+    untagged: false,
+    currentTag: tag,
+  })),
+
+  ADD_TAG_ERROR: (state, { error }) => state.merge({
+    loading: false,
+    error: error,
+  }),
+
+  // Delete Tag
+  DELETE_TAG_START: state => state.set('loading', true),
+
+  DELETE_TAG: state => state.merge(fromJS({
+    loading: false,
+
+    allstars: true,
+    untagged: false,
+    currentTag: null,
+  })),
+
+  DELETE_TAG_ERROR: (state, { error }) => state.merge({
     loading: false,
     error: error,
   }),
