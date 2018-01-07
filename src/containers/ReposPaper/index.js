@@ -5,37 +5,73 @@ import Paper from 'material-ui/Paper';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Grade from 'material-ui-icons/Grade';
 import Pagination from '../Pagination';
+import parseLinkHeader from 'parse-link-header';
 
 import api from '../../configs/api';
-
+import { requestGetRepo } from '../../actions/tag';
 
 
 class ReposPaper extends Component {
   state = {
-    repos: []
+    repos: [],
+    currentPage: 0,
+    pageCount: 0
   };
 
+  componentWillMount() {
+    this.getAllStars();
+  }
+
   componentWillReceiveProps(newProps) {
-    if (newProps.allstars) {
-      api.getAllstars().then((response) => {
-        const all = response.map(item => item.name);
-        this.setState({ repos: all });
-      });
+    this.getRepos(newProps);
+  }
+
+  getRepos = (props, page = null) => {
+    if (props.allstars) {
+      this.getAllStars(page);
 
       return;
     }
 
-    if (newProps.untagged) {
+    if (props.untagged) {
       this.setState({ repos: [] });
+
+      return;
+    }
+
+    if (props.currentTag) {
+
     }
   }
 
-  selectRepo = (repo) => {
-    console.log('Select Repo: ', repo);
+  getAllStars = (page = null) => {
+    api.getAllstars(page).then((response) => {
+      const all = response.data.map(item => ({ name: item.name, full_name: item.full_name }));
+
+      this.setState({ repos: all });
+
+      if (page === null) {
+        const link = parseLinkHeader(response.link);
+
+        this.setState({
+          pageCount: Number(link.last.page),
+          currentPage: 1
+        });
+      }
+      else {
+        this.setState({ currentPage: page });
+      }
+    });
   }
 
   selectPage = (number) => {
-    console.log(number);
+    this.getRepos(this.props, number);
+  }
+
+  selectRepo = (repo, event) => {
+    console.log('Select Repo: ', repo);
+
+    this.props.dispatch(requestGetRepo(repo));
   }
 
   render() {
@@ -43,18 +79,18 @@ class ReposPaper extends Component {
       <div>
       <Paper>
         <Pagination
-          total = { 5 }
-          current = { 1 }
-          display = { 3 }
+          total = { this.state.pageCount }
+          current = { this.state.currentPage }
+          display = { 5 }
           onChange = { this.selectPage }
         />
       </Paper>
       <Paper>
         <List> {
           this.state.repos.map((repo) =>
-            <ListItem button key={ repo } onClick={ this.selectRepo }>
+            <ListItem button key={ repo } onClick={ event => this.selectRepo(repo.full_name, event) }>
               <Grade color="contrast" />
-              <ListItemText primary={ repo } />
+              <ListItemText primary={ repo.name } />
             </ListItem>
           )
         } </List>

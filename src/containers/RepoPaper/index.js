@@ -8,10 +8,11 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import AddIcon from 'material-ui-icons/Add';
 import { withStyles } from 'material-ui/styles';
-
 import AutoComplete from '../AutoComplete';
+import Markdown from 'react-remarkable';
 
 import api from '../../configs/api';
+
 
 const styles = theme => ({
   tags: {
@@ -29,6 +30,17 @@ const styles = theme => ({
 
 
 class RepoPaper extends Component {
+  state = {
+    repoReadMe: 'Mustafa'
+  }
+
+  componentWillReceiveProps(newProps) {
+    api.getRepoReadMe(newProps.currentRepo).then((response) => {
+
+      this.setState({ repoReadMe: response });
+    });
+  }
+
   onAdd = () => {
 
   }
@@ -54,7 +66,9 @@ class RepoPaper extends Component {
         </Paper>
         <Paper>
           <Typography>
-            Mustafa
+            <Markdown>
+            { this.state.repoReadMe }
+            </Markdown>
           </Typography>
         </Paper>
       </div>
@@ -66,5 +80,9 @@ class RepoPaper extends Component {
 RepoPaper.propTypes = {
 }
 
-export default connect()(withStyles(styles, { withTheme: true })(RepoPaper));
+export default connect(
+  state => ({
+    currentRepo: state.tag.get('currentRepo'),
+  })
+)(withStyles(styles, { withTheme: true })(RepoPaper));
 

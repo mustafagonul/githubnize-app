@@ -59,7 +59,9 @@ class TagCommand extends Component {
   }
 
   deleteTag = () => {
-    this.props.dispatch(requestDeleteTag());
+    if (this.props.currentTag) {
+      this.props.dispatch(requestDeleteTag(this.props.currentTag));
+    }
   }
 
   editTag = () => {
@@ -96,4 +98,8 @@ class TagCommand extends Component {
 }
 
 
-export default connect()(withStyles(styles, { withTheme: true })(TagCommand));
+export default connect(
+  state => ({
+    currentTag: state.tag.get('currentTag'),
+  })
+)(withStyles(styles, { withTheme: true })(TagCommand));

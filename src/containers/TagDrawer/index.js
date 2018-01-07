@@ -91,7 +91,7 @@ class TagDrawer extends Component {
               <Divider />
               {
                 this.state.tags.map(value => (
-                  <ListItem button key={ value.slug } onClick={ (event) => this.showTag(value.slug, event) }>
+                  <ListItem button key={ value.slug } onClick={ event => this.showTag(value.slug, event) }>
                     { value.slug === this.props.currentTag ? <StarIcon color="contrast" /> : <MapsLocalOffer color="contrast" /> }
                     <ListItemText primary={ value.name } />
                   </ListItem>
