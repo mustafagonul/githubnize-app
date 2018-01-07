@@ -14,7 +14,7 @@ class Login extends Component {
       <div>
       <header className="login">
         <div className="logo-container">
-          <h1 className="logo">Githubnize</h1>
+          <h1 className="logo">GitHubNize</h1>
         </div>
         <div className="buttons-container">
           <div className="button">

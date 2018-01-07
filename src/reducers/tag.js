@@ -9,6 +9,7 @@ const initialState = fromJS({
   untagged: false,
   currentTag: null,
 
+  currentOwner: null,
   currentRepo: null,
 });
 
@@ -96,13 +97,49 @@ export default createReducer(initialState, {
   // Repo
   GET_REPO_START: state => state.set('loading', true),
 
-  GET_REPO: (state, { repo }) => state.merge(fromJS({
+  GET_REPO: (state, { owner, repo }) => state.merge(fromJS({
     loading: false,
 
+    currentOwner: owner,
     currentRepo: repo,
   })),
 
   GET_REPO_ERROR: (state, { error }) => state.merge({
+    loading: false,
+    error: error,
+  }),
+
+  // Add Repo
+  ADD_REPO_START: state => state.set('loading', true),
+
+  ADD_REPO: (state, { owner, repo, tag }) => state.merge(fromJS({
+    loading: false,
+
+    allstars: false,
+    untagged: false,
+    // currentTag: tag,
+
+    currentOwner: owner,
+    currentRepo: repo,
+  })),
+
+  ADD_REPO_ERROR: (state, { error }) => state.merge({
+    loading: false,
+    error: error,
+  }),
+
+  // Delete Repo
+  DELETE_REPO_START: state => state.set('loading', true),
+
+  DELETE_REPO: state => state.merge(fromJS({
+    loading: false,
+
+    allstars: true,
+    untagged: false,
+    currentTag: null,
+  })),
+
+  DELETE_REPO_ERROR: (state, { error }) => state.merge({
     loading: false,
     error: error,
   }),

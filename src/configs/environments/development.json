@@ -5,7 +5,7 @@
   },
   "github": {
     "url": "https://api.github.com",
-    "client_id": "",
-    "client_secret": ""
+    "client_id": "8e0956eb12060163b16d",
+    "client_secret": "8c5ec382d3d72f99a24aecbeeb4791aad9ed2876"
   }
 }

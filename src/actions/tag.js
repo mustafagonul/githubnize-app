@@ -17,9 +17,9 @@ export const getTag = createAction('GET_TAG', 'tag');
 export const addTag = createAction('ADD_TAG', 'tag');
 export const updateTag = createAction('UPDATE_TAG', 'tag');
 export const deleteTag = createAction('DELETE_TAG');
-export const getRepo = createAction('GET_REPO', 'repo');
-export const addRepo = createAction('ADD_REPO', 'repo');
-export const deleteRepo = createAction('DELETE_REPO');
+export const getRepo = createAction('GET_REPO', 'owner', 'repo');
+export const addRepo = createAction('ADD_REPO', 'owner', 'repo', 'tag');
+export const deleteRepo = createAction('DELETE_REPO', 'owner', 'repo', 'tag');
 
 export const getAllstarsError = createAction('GET_ALLSTARS_ERROR', 'error');
 export const getUntaggedError = createAction('GET_UNTAGGED_ERROR', 'error',);
@@ -104,10 +104,10 @@ export function requestDeleteTag(tag) {
   }
 }
 
-export function requestGetRepo(repo) {
+export function requestGetRepo(owner, repo) {
   return dispatch => {
     dispatch(getRepoStart());
-    dispatch(getRepo(repo));
+    dispatch(getRepo(owner, repo));
 
     /*
     return api.getRepo(repo).then(
@@ -115,5 +115,28 @@ export function requestGetRepo(repo) {
       (error) => dispatch(getRepoError(error))
     );
     */
+  }
+}
+
+export function requestAddRepo(owner, repo, tag) {
+  return dispatch => {
+    dispatch(addRepoStart());
+
+    return api.addRepo(owner, repo, tag).then(
+      (data) => dispatch(addRepo(owner, repo, data.slug)),
+      (error) => dispatch(addRepoError(error))
+    );
+  }
+}
+
+export function requestDeleteRepo(owner, repo, tag) {
+  return dispatch => {
+    dispatch(deleteRepoStart());
+
+    return api.deleteRepo(owner, repo, tag).then(
+      () => dispatch(deleteRepo()),
+      //(error) => dispatch(deleteTagError(error))
+      (error) => dispatch(deleteRepo()) // TODO mustafa: hack
+    );
   }
 }

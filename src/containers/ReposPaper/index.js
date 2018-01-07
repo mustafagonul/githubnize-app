@@ -3,7 +3,8 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import List, { ListItem, ListItemText } from 'material-ui/List';
-import Grade from 'material-ui-icons/Grade';
+import StarBorderIcon from 'material-ui-icons/StarBorder';
+import StarIcon from 'material-ui-icons/Star'
 import Pagination from '../Pagination';
 import parseLinkHeader from 'parse-link-header';
 
@@ -40,13 +41,15 @@ class ReposPaper extends Component {
     }
 
     if (props.currentTag) {
+      this.getTagRepos(props.currentTag);
 
+      return;
     }
   }
 
   getAllStars = (page = null) => {
     api.getAllstars(page).then((response) => {
-      const all = response.data.map(item => ({ name: item.name, full_name: item.full_name }));
+      const all = response.data.map(item => ({ owner: item.owner.login, repo: item.name }));
 
       this.setState({ repos: all });
 
@@ -64,33 +67,47 @@ class ReposPaper extends Component {
     });
   }
 
+  getTagRepos = slug => {
+    api.getTag(slug).then((response) => {
+      const all = response.map(item => ({ owner: item.owner, repo: item.repo }));
+
+      this.setState({ repos: all });
+      this.setState({
+        pageCount: 0,
+        currentPage: 0,
+      });
+    });
+  }
+
   selectPage = (number) => {
     this.getRepos(this.props, number);
   }
 
-  selectRepo = (repo, event) => {
-    console.log('Select Repo: ', repo);
+  selectRepo = (owner, repo, event) => {
+    console.log('Select Repo: ', owner, repo);
 
-    this.props.dispatch(requestGetRepo(repo));
+    this.props.dispatch(requestGetRepo(owner, repo));
   }
 
   render() {
     return (
       <div>
-      <Paper>
-        <Pagination
-          total = { this.state.pageCount }
-          current = { this.state.currentPage }
-          display = { 5 }
-          onChange = { this.selectPage }
-        />
-      </Paper>
+        { this.state.pageCount > 1 ?
+          <Paper>
+            <Pagination
+              total = { this.state.pageCount }
+              current = { this.state.currentPage }
+              display = { this.state.pageCount < 5 ? this.state.pageCount : 5 }
+              onChange = { this.selectPage }
+            />
+          </Paper>: <div/>
+        }
       <Paper>
         <List> {
-          this.state.repos.map((repo) =>
-            <ListItem button key={ repo } onClick={ event => this.selectRepo(repo.full_name, event) }>
-              <Grade color="contrast" />
-              <ListItemText primary={ repo.name } />
+          this.state.repos.map((item, i) =>
+            <ListItem button key={ i } onClick={ event => this.selectRepo(item.owner, item.repo, event) }>
+              { item.owner === this.props.currentOwner && item.repo === this.props.currentRepo ? <StarIcon color="contrast" /> : <StarBorderIcon color="contrast" /> }
+              <ListItemText primary={ item.repo } />
             </ListItem>
           )
         } </List>
@@ -111,6 +128,8 @@ export default connect(
     allstars: state.tag.get('allstars'),
     untagged: state.tag.get('untagged'),
     currentTag: state.tag.get('currentTag'),
+    currentOwner: state.tag.get('currentOwner'),
+    currentRepo: state.tag.get('currentRepo'),
   })
 )(ReposPaper);
 

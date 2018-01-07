@@ -38,6 +38,7 @@ const store = configureStore({
     untagged: false,
     currentTag: null,
 
+    currentOwner: null,
     currentRepo: null,
   })
 });
