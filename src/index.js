@@ -36,9 +36,9 @@ const store = configureStore({
 
     allstars: false,
     untagged: false,
-    current: null,
+    currentTag: null,
 
-    repo: null,
+    currentRepo: null,
   })
 });
 
@@ -50,7 +50,6 @@ if (api_token) {
 if (github_token) {
   api.github_token = github_token;
 }
-
 
 render(
   <Provider store={store}>

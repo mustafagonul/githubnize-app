@@ -11,11 +11,15 @@
     "eslint": "eslint src"
   },
   "dependencies": {
+    "autosuggest-highlight": "^3.1.1",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
-    "material-ui": "^0.20.0",
+    "material-ui": "^1.0.0-beta.25",
+    "material-ui-icons": "^1.0.0-beta.17",
     "normalize.css": "^7.0.0",
+    "parse-link-header": "^1.0.1",
     "react": "^16.2.0",
+    "react-autosuggest": "^9.3.2",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-tap-event-plugin": "^3.0.2",

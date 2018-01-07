@@ -1,35 +1,73 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
+import Grid from 'material-ui/Grid';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 
-import Header from '../Header'
-import Sidebar from '../Sidebar'
-import Repos from '../Repos'
-import Board from '../Board'
 
-import './style.css';
+import MenuAppBar from '../MenuAppBar';
+import TagDrawer from '../TagDrawer';
+import ReposPaper from '../ReposPaper';
+import RepoPaper from '../RepoPaper';
+
+
+const styles = theme => ({
+  background: {
+    color: 'black'
+  },
+  paper: {
+    height: '100%'
+  }
+});
 
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tagDrawerOpened: false,
+    }
+  }
+
+  openTagDrawer = () => {
+    this.setState({
+      tagDrawerOpened: true
+    });
+  }
+
+  closeTagDrawer = () => {
+    this.setState({
+      tagDrawerOpened: false
+    });
+  }
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <div className="home">
-        <Header />
-        <div className="home-body">
-          <div className="home-body-sidebar">
-            <Sidebar />
-          </div>
-          <div className="home-body-repos">
-            <Repos />
-          </div>
-          <div className="home-body-board">
-            <Board />
-          </div>
-        </div>
+      <div>
+        <MenuAppBar
+          openTagDrawer={this.openTagDrawer}
+        />
+        <TagDrawer
+          open={this.state.tagDrawerOpened}
+          closeTagDrawer={this.closeTagDrawer}
+        />
+
+        <Grid container spacing={0}>
+          <Grid item xs={3}>
+            <ReposPaper />
+          </Grid>
+          <Grid item xs={9}>
+            <RepoPaper />
+          </Grid>
+        </Grid>
       </div>
     );
   }
 }
 
-export default connect()(Home);
+export default connect()(withStyles(styles, { withTheme: true })(Home));
 
