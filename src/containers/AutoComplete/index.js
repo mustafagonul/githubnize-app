@@ -124,7 +124,7 @@ function getSuggestions(value) {
 const styles = theme => ({
   container: {
     // flexGrow: 1,
-    // position: 'relative',
+    position: 'relative',
   },
   suggestionsContainerOpen: {
     position: 'absolute',

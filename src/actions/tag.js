@@ -104,13 +104,16 @@ export function requestDeleteTag(tag) {
   }
 }
 
-export function requestRepo(repo) {
+export function requestGetRepo(repo) {
   return dispatch => {
-    dispatch(getTagStart());
+    dispatch(getRepoStart());
+    dispatch(getRepo(repo));
 
+    /*
     return api.getRepo(repo).then(
       () => dispatch(getRepo(repo)),
       (error) => dispatch(getRepoError(error))
     );
+    */
   }
 }

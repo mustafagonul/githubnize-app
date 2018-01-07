@@ -4,6 +4,26 @@ function handleResponse(response) {
   });
 }
 
+function handleTextResponse(response) {
+  return response.text().then(json => {
+    return response.ok ? json : Promise.reject(json);
+  });
+}
+
+
+function handleResponseWithLink(response) {
+  return response.json().then(json => {
+
+    const value = {
+      data: json,
+      link: response.headers.get('Link')
+    }
+
+    return response.ok ? value : Promise.reject(value);
+  });
+}
+
+
 export default class Api {
   constructor(api_url, github_url) {
 
@@ -65,12 +85,17 @@ export default class Api {
     return this.header(this._github_token, customHeader);
   }
 
-  getAllstars() {
-    return fetch(`${this._github_url}/user/starred`, {
+  getAllstars(page = null) {
+    let url = `${this._github_url}/user/starred`;
+    if (page) {
+      url += `?page=${page}`;
+    }
+
+    return fetch(url, {
       method: 'GET',
       headers: this.github_header(),
     })
-    .then(handleResponse);
+    .then(handleResponseWithLink);
   }
 
   getUntagged() {
@@ -108,17 +133,9 @@ export default class Api {
   }
 
   deleteTag(tag) {
-    /*
-    const data = {
-      login: this.user,
-      slug: tag,
-    };
-    */
-
     return fetch(`${this._api_url}/tag/${tag}`, {
       method: 'DELETE',
       headers: this.api_header(),
-      // body: JSON.stringify(data),
     })
     .then(handleResponse);
   }
@@ -127,8 +144,21 @@ export default class Api {
 
   }
 
-  getRepo() {
+  getRepoReadMe(repo) {
+    return fetch(`${this._github_url}/repos/${repo}/readme`, {
+      method: 'GET',
+      headers: this.github_header(),
+    })
+    .then(handleResponse)
+    .then(response => {
+      console.log(response);
 
+      return fetch(response.download_url, {
+        method: 'GET',
+        // headers: this.github_header(),
+      })
+      .then(handleTextResponse);
+    });
   }
 
 
