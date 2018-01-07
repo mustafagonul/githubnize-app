@@ -28,6 +28,17 @@ export default createReducer(initialState, {
     error: error,
   }),
 
+  SIGN_OUT_START: state => state.set('loading', true),
+
+  SIGN_OUT_COMPLETE: (state, { data: { api_token, github_token, user }}) => state.merge(fromJS({
+    loading: false,
+    valid: false,
+    error: null,
+    api_token: null,
+    github_token: null,
+    user: null,
+  })),
+
   CLEAR_ERROR_STATE: (state, { error }) => state.set('error', false),
 
   CLEAR_AUTH: () => initialState,

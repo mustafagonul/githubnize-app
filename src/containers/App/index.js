@@ -1,34 +1,27 @@
 import React, { Component } from 'react';
-
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-// import {green100, green500, green700} from 'material-ui/styles/colors';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import Main from '../Main'
 
-// import './style.css';
 
-/*
-const muiTheme = getMuiTheme({
+const muiTheme = createMuiTheme({
   palette: {
-    primary1Color: green500,
-    primary2Color: green700,
-    primary3Color: green100,
+    type: 'dark'
   },
-}, {
-  avatar: {
-    borderColor: null,
+  overrides: {
+    MuiChip: {
+      root: {
+        'background-color': 'grey',
+      }
+    }
   }
 });
-*/
 
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+      <MuiThemeProvider theme ={muiTheme}>
         <Main />
       </MuiThemeProvider>
     );

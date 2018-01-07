@@ -7,9 +7,9 @@ const initialState = fromJS({
 
   allstars: false,
   untagged: false,
-  current: null,
+  currentTag: null,
 
-  repo: null,
+  currentRepo: null,
 });
 
 export default createReducer(initialState, {
@@ -21,7 +21,7 @@ export default createReducer(initialState, {
 
     allstars: true,
     untagged: false,
-    current: null,
+    currentTag: null,
   })),
 
   GET_ALLSTARS_ERROR: (state, { error }) => state.merge({
@@ -37,7 +37,7 @@ export default createReducer(initialState, {
 
     allstars: false,
     untagged: true,
-    current: null,
+    currentTag: null,
   })),
 
   GET_UNTAGGED_ERROR: (state, { error }) => state.merge({
@@ -48,12 +48,12 @@ export default createReducer(initialState, {
   // Tag
   GET_TAG_START: state => state.set('loading', true),
 
-  GET_TAG: (state, { current }) => state.merge(fromJS({
+  GET_TAG: (state, { tag }) => state.merge(fromJS({
     loading: false,
 
     allstars: false,
     untagged: false,
-    current: current,
+    currentTag: tag,
   })),
 
   GET_TAG_ERROR: (state, { error }) => state.merge({
@@ -67,7 +67,7 @@ export default createReducer(initialState, {
   GET_REPO: (state, { repo }) => state.merge(fromJS({
     loading: false,
 
-    repo: repo,
+    currentRepo: repo,
   })),
 
   GET_REPO_ERROR: (state, { error }) => state.merge({

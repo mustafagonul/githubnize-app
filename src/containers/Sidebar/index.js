@@ -1,11 +1,11 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import{ connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import ToggleStarBorder from 'material-ui/svg-icons/toggle/star-border';
-import SocialPublic from 'material-ui/svg-icons/social/public';
-import MapsLocalOffer from 'material-ui/svg-icons/maps/local-offer';
+import ToggleStarBorder from 'material-ui-icons/StarBorder';
+import SocialPublic from 'material-ui-icons/Public';
+import MapsLocalOffer from 'material-ui-icons/LocalOffer';
 
 import { requestAllStarred, requestUntagged } from '../../actions/tag';
 
@@ -31,16 +31,7 @@ class Sidebar extends Component {
   render() {
     return (
       <div>
-        <Command />
-        <Divider />
-        <List>
-          <ListItem onClick={this.showAllstars.bind(this)} primaryText="All Stars" leftIcon={<SocialPublic />} />
-          <ListItem onClick={this.showUntagged.bind(this)} primaryText="Untagged" leftIcon={<ToggleStarBorder />} />
-        </List>
-        <Divider />
-        <List>
-          <ListItem primaryText="All mail" leftIcon={<MapsLocalOffer />} />
-        </List>
+
       </div>
     );
   }

@@ -5,12 +5,13 @@ function handleResponse(response) {
 }
 
 export default class Api {
-  constructor(api_url, github_url, api_token = null, github_token = null) {
+  constructor(api_url, github_url) {
 
     this._api_url = api_url;
     this._github_url = github_url;
-    this._api_token = api_token;
-    this._github_token = github_token;
+    this._api_token = null;
+    this._github_token = null;
+    this._user = null;
   }
 
   get api_token() {
@@ -18,7 +19,11 @@ export default class Api {
   }
 
   get github_token() {
-    return this._api_token;
+    return this._github_token;
+  }
+
+  get user() {
+    return this._user;
   }
 
   set api_token(newToken) {
@@ -27,6 +32,10 @@ export default class Api {
 
   set github_token(newToken) {
     this._github_token = newToken;
+  }
+
+  set user(user) {
+    this._user = user;
   }
 
   header(token, customHeader) {
@@ -56,18 +65,6 @@ export default class Api {
     return this.header(this._github_token, customHeader);
   }
 
-  getTags() {
-
-  }
-
-  getRepos() {
-    return fetch(`${this._github_url}/user/repos`, {
-      method: 'GET',
-      headers: this.github_header(),
-    })
-    .then(handleResponse);
-  }
-
   getAllstars() {
     return fetch(`${this._github_url}/user/starred`, {
       method: 'GET',
@@ -80,11 +77,43 @@ export default class Api {
 
   }
 
-  getTag() {
+  getTags() {
+    return fetch(`${this._api_url}/tag`, {
+      method: 'GET',
+      headers: this.api_header(),
+    })
+    .then(handleResponse);
+  }
+
+  getTag(tag) {
+    return fetch(`${this._api_url}/tag/${tag}`, {
+      method: 'GET',
+      headers: this.api_header(),
+    })
+    .then(handleResponse);
+  }
+
+  addTag(tag) {
+    const data = {
+      login: this.user,
+      name: tag,
+    };
+
+    return fetch(`${this._api_url}/tag`, {
+      method: 'POST',
+      headers: this.api_header(),
+      body: JSON.stringify(data),
+    })
+    .then(handleResponse);
+  }
+
+  deleteTag(tag) {
 
   }
 
+  editTag(tag) {
 
+  }
 
   getRepo() {
 

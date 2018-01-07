@@ -7,14 +7,10 @@ import Home from '../Home';
 
 import { githubAuthRequest } from '../../actions/auth';
 
-import './style.css';
-
 
 class Main extends Component {
   handleGithubEvent(data) {
     if (!data.error) {
-      console.log('aaa');
-
       this.props.dispatch(githubAuthRequest(data));
     }
   }
